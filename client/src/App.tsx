@@ -5,12 +5,20 @@ import {
   Refine,
 } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
-
+import { MuiInferencer } from "@refinedev/inferencer/mui";
 import {
   ErrorComponent,
   RefineSnackbarProvider,
   notificationProvider,
 } from "@refinedev/mui";
+
+import {
+  AccountCircleOutlined,
+  ChatBubbleOutlined,
+  PeopleAltOutlined,
+  StarOutlineRounded,
+  VillaOutlined,
+} from '@mui/icons-material'
 
 import { ThemedLayoutV2 } from "@refinedev/mui";
 import { CustomHeader } from "components/themedLayout/header";
@@ -149,21 +157,43 @@ function App() {
               routerProvider={routerBindings}
               authProvider={authProvider}
               resources={[
-                {name: "blog_posts",
-                  list: "/blog-posts",
-                  create: "/blog-posts/create",
-                  edit: "/blog-posts/edit/:id",
-                  show: "/blog-posts/show/:id",
+                {
+                  name: "property",
+                  list : MuiInferencer,
+                  icon : <VillaOutlined/>,
                   meta: {
                     canDelete: true,
                   },
                 },
                 {
-                  name: "categories",
-                  list: "/categories",
-                  create: "/categories/create",
-                  edit: "/categories/edit/:id",
-                  show: "/categories/show/:id",
+                  name: "agent",
+                  list : MuiInferencer,
+                  icon : <PeopleAltOutlined/>,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "review",
+                  list : MuiInferencer,
+                  icon : <StarOutlineRounded/>,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "message",
+                  list : MuiInferencer,
+                  icon : <ChatBubbleOutlined/>,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "my-profile",
+                  options : {label : 'My Profile'},
+                  list : MuiInferencer,
+                  icon : <AccountCircleOutlined/>,
                   meta: {
                     canDelete: true,
                   },
@@ -186,24 +216,7 @@ function App() {
                     </Authenticated>
                   }
                 >
-                  <Route
-                    index
-                    element={<NavigateToResource resource="blog_posts" />}
-                  />
-                  <Route path="/blog-posts">
-                    <Route index element={<BlogPostList />} />
-                    <Route path="create" element={<BlogPostCreate />} />
-                    <Route path="edit/:id" element={<BlogPostEdit />} />
-                    <Route path="show/:id" element={<BlogPostShow />} />
-                  </Route>
-                  <Route path="/categories">
-                    <Route index element={<CategoryList />} />
-                    <Route path="create" element={<CategoryCreate />} />
-                    <Route path="edit/:id" element={<CategoryEdit />} />
-                    <Route path="show/:id" element={<CategoryShow />} />
-                  </Route>
                 </Route>
-
                 <Route
                   element={
                     <Authenticated fallback={<Outlet />}>
